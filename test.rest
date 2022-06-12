@@ -1,0 +1,20 @@
+# POST http://localhost:8080/api/users/signup
+# Content-Type: application/json
+
+# {
+#     "userName": "Racheal10",
+#     "email": "kuranchieracheal@gmail.com",
+#     "password": "coconut20"   
+# }
+
+#GET http://localhost:8080/api/users/verify-email/1/29d8e4a51cd6648b2aa23e2c06c9a508
+
+
+
+POST http://localhost:8080/api/users/login
+Content-Type: application/json
+
+{
+    "email": "kuranchieracheal@gmail.com",
+    "password": "coconut20"   
+}

@@ -2,8 +2,8 @@
 const bcrypt = require("bcrypt");
 const db = require("../Models");
 const jwt = require("jsonwebtoken");
-const nodemailer = require("nodemailer");
 const crypto = require("crypto");
+const { sendingMail } = require("../nodemailer/mailing");
 
 // Assigning users to the variable User
 const User = db.users;
@@ -25,50 +25,28 @@ const signup = async (req, res) => {
 
     //if user details is captured
     //create a token with crypto.js
-    
+
     if (user) {
       let setToken = await Token.create({
         userId: user.id,
         token: crypto.randomBytes(16).toString("hex"),
       });
 
-      //if token is created, send the user a mail 
+      //if token is created, send the user a mail
       if (setToken) {
         //send email to the user
-        const Transporter = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            user: process.env.email,
-            pass: process.env.emailpassword,
-          },
-        });
-
+        //with the function coming from the mailing.js file
         //message containing the user id and the token to help verify their email
-        let mailing = {
+        sendingMail({
           from: "no-reply@example.com",
           to: `${email}`,
           subject: "Account Verification Link",
           text: `Hello, ${userName} Please verify your email by
                 clicking this link :
                 http://localhost:8080/api/users/verify-email/${user.id}/${setToken.token} `,
-        };
-
-        //sending the email, if error, console log the error else send status of 200
-        Transporter.sendMail(mailing, function (err, info) {
-          if (err) {
-            console.log(err);
-          }
-          if (info) {
-            console.log(`Email sent to ${email} ${info.response}`);
-            return res
-              .status(200)
-              .send(
-                "A verification email has been sent to " +
-                  email +
-                  ". It will be expire after one day. If you not get verification Email click on resend token."
-              );
-          }
         });
+
+        //if token is not created, send a status of 400
       } else {
         return res.status(400).send("token not created");
       }
@@ -85,11 +63,9 @@ const signup = async (req, res) => {
   }
 };
 
-
 //verifying the email of the user
 const verifyEmail = async (req, res) => {
   try {
-    
     const token = req.params.token;
 
     //find user by token using the where clause
@@ -150,7 +126,6 @@ const verifyEmail = async (req, res) => {
     console.log(error);
   }
 };
-
 
 //login authentication
 

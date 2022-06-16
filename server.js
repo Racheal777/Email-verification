@@ -4,6 +4,7 @@ const express = require('express')
 
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
+const helmet = require('helmet')
  const db = require('./Models')
  const userRoutes = require ('./Routes/userRoutes')
  
@@ -18,6 +19,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
+app.use(helmet())
+
+
 
 //synchronizing the database and forcing it to false so we dont lose data
 db.sequelize.sync({ force: true }).then(() => {

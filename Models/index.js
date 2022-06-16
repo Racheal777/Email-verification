@@ -1,11 +1,11 @@
 //importing modules
 
 const {Sequelize, DataTypes} = require('sequelize')
-
 const dotenv = require('dotenv').config()
 
 
 //database connection
+//database name is testing
   const sequelize = new Sequelize(`postgres://postgres:${process.env.Password}@localhost:5433/testing`, {dialect: "posgres"})
 
   //checking if connection is done

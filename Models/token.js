@@ -1,6 +1,7 @@
 
 //Token model
 //using references to establish the model that the token is connected to
+//every token will insclude the userId
 module.exports = (sequelize, DataTypes) => {
     const Token = sequelize.define( "token", {
         id: {
@@ -9,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
           },
+          
           userId: {
             type: DataTypes.INTEGER,
             allowNull: false,

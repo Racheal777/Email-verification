@@ -1,12 +1,11 @@
 
 //importing modules
 const express = require('express')
-
 const dotenv = require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
- const db = require('./Models')
- const userRoutes = require ('./Routes/userRoutes')
+const db = require('./Models')
+const userRoutes = require ('./Routes/userRoutes')
  
 
 //setting up your port

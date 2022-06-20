@@ -41,9 +41,9 @@ const signup = async (req, res) => {
           from: "no-reply@example.com",
           to: `${email}`,
           subject: "Account Verification Link",
-          text: `Hello, ${userName} Please verify your email by
-                clicking this link :
-                http://localhost:8080/api/users/verify-email/${user.id}/${setToken.token} `,
+          text: `Hello, ${userName}, 
+        Please verify your email by clicking this link :
+        http://localhost:8080/api/users/verify-email/${user.id}/${setToken.token} `,
         });
 
         //if token is not created, send a status of 400
